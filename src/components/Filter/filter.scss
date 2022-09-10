@@ -1,0 +1,33 @@
+.btn {
+  padding: 7px 15px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: #454791;
+  color: white;
+  border-radius: 10px;
+  border: none;
+
+  &:hover {
+    opacity: .9;
+  }
+}
+
+.outline {
+  outline: 3px solid black;
+}
+
+.popup-container {
+  width: auto;
+  max-width: 500px;
+  text-align: start;
+
+  @media screen and (max-width: 460px) {
+    max-width: none;
+    width: 100%;
+  }
+
+  .action-btns-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}

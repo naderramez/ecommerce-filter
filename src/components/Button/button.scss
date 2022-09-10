@@ -1,0 +1,17 @@
+.filter-btn {
+  padding: 7px 15px;
+  margin: 20px;
+  cursor: pointer;
+  background-color: #454791;
+  color: white;
+  border-radius: 10px;
+  border: none;
+
+  &:hover {
+    opacity: .9;
+  }
+}
+
+.outline {
+  outline: 3px solid black;
+}

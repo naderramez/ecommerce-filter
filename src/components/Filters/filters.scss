@@ -1,0 +1,27 @@
+.filtersContainer {
+  display: flex;
+}
+
+.appliedFiltersContainer {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+
+  .appliedFilterContainer {
+    display: flex;
+    width: fit-content;
+    padding: 7px 15px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #454791;
+    color: white;
+
+    .label {
+      margin-right: 5px;
+    }
+
+    .clearBtn {
+      cursor: pointer;
+    }
+  }
+}
