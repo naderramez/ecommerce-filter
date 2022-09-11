@@ -1,6 +1,9 @@
 import React, { Dispatch, FC, SetStateAction, useCallback, useMemo, useState } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { FILTER_OPTIONS, TFilterOption } from "../../constants/filterOptions";
-import Filter from "../Filter";
+import Filter from "../Filter/Filter";
+import { FilterProps } from "../MoreFiltersBtn/MoreFilterBtn.types";
+import MoreFiltersBtn from "../MoreFiltersBtn/MoreFiltersBtn";
 
 import "./filters.scss";
 import WrappedAppliedFilter from "./WrappedAppliedFilter";
@@ -24,6 +27,8 @@ const Filters: FC = () => {
   const [constructionOptions, setConstructionOptions] = useState<TFilterOption[]>(constructionInitialOptions);
   const [styleOptions, setStyleOptions] = useState<TFilterOption[]>(styleInitialOptions);
 
+  const isSmallScreen = useMediaQuery("(max-width:460px)");
+
   const clearAllFilters = () => {
     setSizeOptions(sizeInitialOptions);
     setColorOptions(colorInitialOptions);
@@ -34,6 +39,44 @@ const Filters: FC = () => {
     setStyleOptions(styleInitialOptions);
   };
 
+  const filters: FilterProps[] = [
+    {
+      id: "roomFilter",
+      label: "Room",
+      options: roomOptions,
+      applyFilters: (options) => applyFilters(options, setRoomOptions),
+      clearFilters: () => clearFilters(roomInitialOptions, setRoomOptions),
+    },
+    {
+      id: "priceFilter",
+      label: "Price",
+      options: priceOptions,
+      applyFilters: (options) => applyFilters(options, setPriceOptions),
+      clearFilters: () => clearFilters(priceInitialOptions, setPriceOptions),
+    },
+    {
+      id: "materialFilter",
+      label: "Material",
+      options: materialOptions,
+      applyFilters: (options) => applyFilters(options, setMaterialOptions),
+      clearFilters: () => clearFilters(materialInitialOptions, setMaterialOptions),
+    },
+    {
+      id: "constructionFilter",
+      label: "Construction",
+      options: constructionOptions,
+      applyFilters: (options) => applyFilters(options, setConstructionOptions),
+      clearFilters: () => clearFilters(constructionInitialOptions, setConstructionOptions),
+    },
+    {
+      id: "styleFilter",
+      label: "Style",
+      options: styleOptions,
+      applyFilters: (options) => applyFilters(options, setStyleOptions),
+      clearFilters: () => clearFilters(styleInitialOptions, setStyleOptions),
+    },
+  ];
+
   const hasSelectedOption = useCallback((options: TFilterOption[]): boolean => {
     let isFilterApplied = false;
     options.forEach((option) => {
@@ -43,8 +86,6 @@ const Filters: FC = () => {
   }, []);
 
   const isFilterApplied = useMemo(() => {
-    console.log("isFilterApplied memo");
-
     if (hasSelectedOption(sizeOptions)) return true;
     if (hasSelectedOption(colorOptions)) return true;
     if (hasSelectedOption(roomOptions)) return true;
@@ -80,41 +121,47 @@ const Filters: FC = () => {
           applyFilters={(options) => applyFilters(options, setColorOptions)}
           clearFilters={() => clearFilters(colorInitialOptions, setColorOptions)}
         />
-        <Filter
-          id="roomFilter"
-          label="Room"
-          options={roomOptions}
-          applyFilters={(options) => applyFilters(options, setRoomOptions)}
-          clearFilters={() => clearFilters(roomInitialOptions, setRoomOptions)}
-        />
-        <Filter
-          id="priceFilter"
-          label="Price"
-          options={priceOptions}
-          applyFilters={(options) => applyFilters(options, setPriceOptions)}
-          clearFilters={() => clearFilters(priceInitialOptions, setPriceOptions)}
-        />
-        <Filter
-          id="materialFilter"
-          label="Material"
-          options={materialOptions}
-          applyFilters={(options) => applyFilters(options, setMaterialOptions)}
-          clearFilters={() => clearFilters(materialInitialOptions, setMaterialOptions)}
-        />
-        <Filter
-          id="constructionFilter"
-          label="Construction"
-          options={constructionOptions}
-          applyFilters={(options) => applyFilters(options, setConstructionOptions)}
-          clearFilters={() => clearFilters(constructionInitialOptions, setConstructionOptions)}
-        />
-        <Filter
-          id="styleFilter"
-          label="Style"
-          options={styleOptions}
-          applyFilters={(options) => applyFilters(options, setStyleOptions)}
-          clearFilters={() => clearFilters(styleInitialOptions, setStyleOptions)}
-        />
+        {!isSmallScreen ? (
+          <>
+            <Filter
+              id="roomFilter"
+              label="Room"
+              options={roomOptions}
+              applyFilters={(options) => applyFilters(options, setRoomOptions)}
+              clearFilters={() => clearFilters(roomInitialOptions, setRoomOptions)}
+            />
+            <Filter
+              id="priceFilter"
+              label="Price"
+              options={priceOptions}
+              applyFilters={(options) => applyFilters(options, setPriceOptions)}
+              clearFilters={() => clearFilters(priceInitialOptions, setPriceOptions)}
+            />
+            <Filter
+              id="materialFilter"
+              label="Material"
+              options={materialOptions}
+              applyFilters={(options) => applyFilters(options, setMaterialOptions)}
+              clearFilters={() => clearFilters(materialInitialOptions, setMaterialOptions)}
+            />
+            <Filter
+              id="constructionFilter"
+              label="Construction"
+              options={constructionOptions}
+              applyFilters={(options) => applyFilters(options, setConstructionOptions)}
+              clearFilters={() => clearFilters(constructionInitialOptions, setConstructionOptions)}
+            />
+            <Filter
+              id="styleFilter"
+              label="Style"
+              options={styleOptions}
+              applyFilters={(options) => applyFilters(options, setStyleOptions)}
+              clearFilters={() => clearFilters(styleInitialOptions, setStyleOptions)}
+            />
+          </>
+        ) : (
+          <MoreFiltersBtn filters={filters} />
+        )}
       </div>
 
       <div className="appliedFiltersContainer">

@@ -50,13 +50,14 @@ const Filter: FC<Props> = ({ id, label = "button", options, clearFilters, applyF
 
   const selectedClass = selectedOptions.length > 0 ? "outline" : "";
 
-  const toggleFilterIsActive = () =>
+  const toggleFilterIsActive = () => {
     setFilterIsActive((prevState) => {
       if (prevState === false) {
         setDraftSelection([...selectedOptions]);
       }
       return !prevState;
     });
+  };
 
   const closeFilter = () => {
     setFilterIsActive(false);

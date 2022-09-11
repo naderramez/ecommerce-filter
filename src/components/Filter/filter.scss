@@ -31,3 +31,12 @@
     justify-content: space-between;
   }
 }
+
+#moreFiltersBtn {
+  .MuiPopover-paper {
+    @media screen and (max-width: 460px) {
+      width: 100%;
+      left: 10px;
+    }
+  }
+}
