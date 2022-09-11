@@ -1,15 +1,10 @@
 import React, { FC } from "react";
-import IQVIA_LOGO from "../../assets/iqvia-logo.svg";
+import AMAZON_LOGO from "../../assets/amazon-logo.jpg";
 
 const Header: FC = () => {
   return (
     <div>
-      <img
-        src={IQVIA_LOGO}
-        alt="IQVIA Logo"
-        width={100}
-        style={{ margin: "20px" }}
-      />
+      <img src={AMAZON_LOGO} alt="Amazon Logo" width={100} height={60} style={{ margin: "20px" }} />
     </div>
   );
 };
